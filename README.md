@@ -83,9 +83,10 @@ Ensure that `input_data/` contains the necessary wind and TKE data files before 
 ## Author
 
 **Elnur Esenalieva**
-Final Year Project, \Department of Mechanical Engineering, City University of Hong Kong
-Supervisor: \Dr Penghao DUAN
-Year: 2025
+* Final Year Project
+* Department of Mechanical Engineering, City University of Hong Kong
+* Supervisor: Dr Penghao DUAN
+* Year: 2025
 
 ## License
 
