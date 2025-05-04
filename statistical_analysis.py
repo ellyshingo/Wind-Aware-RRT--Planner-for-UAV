@@ -9,12 +9,11 @@ from math import sqrt
 import uuid
 import os
 
-# Set random seed for reproducibility
 np.random.seed(42)
 
 # Create output directory for plots and report
-if not os.path.exists("output"):
-    os.makedirs("output")
+if not os.path.exists("output_data"):
+    os.makedirs("output_data")
 
 # Function to calculate Cohen's d
 def cohens_d(group1, group2):
@@ -27,12 +26,14 @@ def cohens_d(group1, group2):
 def eta_squared(anova_stat, n, k):
     return anova_stat / (anova_stat + (n - k))
 
-# Mann-Whitney U
+# Function to calculate r for Mann-Whitney U
 def r_mannwhitneyu(stat, n1, n2):
     z = stat / sqrt(n1 * n2 * (n1 + n2 + 1) / 12)
     return abs(z / sqrt(n1 + n2))
 
-data = pd.read_csv("v2/path_metrics1.csv")
+data = pd.read_csv("metrics.csv")
+
+# Initialize report
 report = ["# Statistical Analysis Report\n"]
 
 # Descriptive Statistics
@@ -46,7 +47,7 @@ for metric in ["Path Length", "Computational Time", "Cost"]:
     plt.figure(figsize=(8, 6))
     sns.boxplot(x="Condition", y=metric, data=data)
     plt.title(f"{metric} by Condition")
-    plt.savefig(f"output/{metric.replace(' ', '_')}_boxplot.png")
+    plt.savefig(f"output_data/{metric.replace(' ', '_')}_boxplot.png")
     plt.close()
     report.append(f"![{metric} Boxplot]({metric.replace(' ', '_')}_boxplot.png)\n")
 
@@ -147,7 +148,7 @@ for metric in ["Path Length", "Computational Time", "Cost"]:
             report.append(dunn.to_markdown() + "\n")
 
 # Save report
-with open("output/stat_analysis_report.md", "w") as f:
+with open("output_data/stat_analysis_report.md", "w") as f:
     f.write("\n".join(report))
 
-print("Analysis complete. Check 'output' folder for plots and report.")
+print("Analysis complete. Check 'output_data' folder for plots and report.")
